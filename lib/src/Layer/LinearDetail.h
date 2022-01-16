@@ -6,7 +6,7 @@ namespace cunet
     Linear<T>::Linear(const uint32_t& in, const uint32_t& out, T* weights, T* bias)
         :_size_in(in),
          _size_out(out),
-         _output(Tensor<T>(out))
+         _output(Tensor<T>::createDeviceTensor(out))
     {
         _weight = Memory::createDeviceArray<T>(in * out);
         Memory::copyHost2DeviceArray<T>(in * out, weights, _weight);

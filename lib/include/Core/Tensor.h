@@ -10,12 +10,26 @@ namespace cunet
         public:
         Tensor() = default;
 
-        ~Tensor();
-
-        Tensor(T* data, const uint32_t& size);
+        //These methods are to create presized tensors on the cpu
+        static Tensor<T>
+        createDeviceTensor(T* data, const uint32_t& size);
 
         //Creates tensor with zeros
-        Tensor(const uint32_t& size);
+        static Tensor<T>
+        createDeviceTensor(const uint32_t& size);
+
+        static void
+        destroyDeviceTensor(Tensor<T>& tensor);
+
+        /// 
+        /// This creates a temporary device tensor.
+        /// This tensor is only valid as long as 'data' is alive
+        /// Only the pointer to the data is stored, no copy is created
+        /// 
+        template<uint32_t N>
+        __device__
+        void
+        setData(T data[N]);
 
         __device__
         T* data();

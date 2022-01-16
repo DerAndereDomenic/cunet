@@ -5,25 +5,42 @@
 namespace cunet
 {
     template<typename T>
-    Tensor<T>::Tensor(T* data, const uint32_t& size)
-        :_size(size)
+    Tensor<T>
+    Tensor<T>::createDeviceTensor(T* data, const uint32_t& size)
     {
-        _data = Memory::createDeviceArray<T>(size);
-        Memory::copyHost2DeviceArray<T>(size, data, _data);
+        Tensor<T> result;
+        result._data = Memory::createDeviceArray<T>(size);
+        Memory::copyHost2DeviceArray<T>(size, data, result._data);
+        result._size = size;
+        return result;
     }
     
     template<typename T>
-    Tensor<T>::Tensor(const uint32_t& size)
-        :_size(size)
+    Tensor<T>
+    Tensor<T>::createDeviceTensor(const uint32_t& size)
     {
-        _data = Memory::createDeviceArray<T>(size);
+        Tensor<T> result;
+        result._data = Memory::createDeviceArray<T>(size);
+        result._size = size;
+
+        return result;
     }
 
     template<typename T>
-    Tensor<T>::~Tensor()
+    void
+    Tensor<T>::destroyDeviceTensor(Tensor<T>& t)
     {
-        //TODO
-        //Memory::destroyDeviceArray<T>(_data);
+        Memory::destroyDeviceArray<T>(t._data);
+    }
+
+    template<typename T>
+    template<uint32_t N>
+    __device__
+    void
+    Tensor<T>::setData<N>(T data[N])
+    {
+        _data = data;
+        _size = N;
     }
 
     template<typename T>
