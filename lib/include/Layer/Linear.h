@@ -19,6 +19,9 @@ namespace cunet
         Tensor<T>&
         operator()(Tensor<T>& input);
 
+        __device__
+        void
+        operator()(T* input, T* output);
 
         private:
         T* _weight;

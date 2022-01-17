@@ -24,6 +24,22 @@ namespace cunet
 
     template<typename T>
     __device__
+    void
+    Linear<T>::operator()(T* input, T* output)
+    {
+        for(uint32_t i = 0; i < _size_out; ++i) //Rows
+        {
+            T result = 0;
+            for(uint32_t j = 0; j < _size_in; ++j) //Cols
+            {
+                result += _weight[i * _size_in + j] * input[j];
+            }
+            output[i] = result + _bias[i];
+        }
+    }
+
+    template<typename T>
+    __device__
     Tensor<T>&
     Linear<T>::operator()(Tensor<T>& input)
     {
