@@ -14,6 +14,9 @@ namespace cunet
 
         __device__
         Tensor<T>& operator()(Tensor<T>& input);
+
+        __device__
+        void operator()(T* input, T* output, const uint32_t& size);
     };
 
     template<typename T>
@@ -26,6 +29,9 @@ namespace cunet
 
         __device__
         Tensor<T>& operator()(Tensor<T>& input);
+
+        __device__
+        void operator()(T* input, T* output, const uint32_t& size);
     };
 
     template<typename T>
@@ -38,6 +44,9 @@ namespace cunet
 
         __device__
         Tensor<T>& operator()(Tensor<T>& input);
+
+        __device__
+        void operator()(T* input, T* output, const uint32_t& size);
     };
 
     template<typename T>
@@ -50,6 +59,9 @@ namespace cunet
 
         __device__
         Tensor<T>& operator()(Tensor<T>& input);
+
+        __device__
+        void operator()(T* input, T* output, const uint32_t& size);
 
         private:
         T beta;

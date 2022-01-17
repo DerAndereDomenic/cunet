@@ -23,6 +23,17 @@ namespace cunet
 
     template<typename T>
     __device__
+    void 
+    ReLU<T>::operator()(T* input, T* output, const uint32_t& size)
+    {
+        for(uint32_t i = 0; i < size; ++i)
+        {
+            output[i] = operator()(input[i]);
+        }
+    }
+
+    template<typename T>
+    __device__
     T 
     Tanh<T>::operator()(const T& input)
     {
@@ -42,6 +53,17 @@ namespace cunet
 
     template<typename T>
     __device__
+    void 
+    Tanh<T>::operator()(T* input, T* output, const uint32_t& size)
+    {
+        for(uint32_t i = 0; i < size; ++i)
+        {
+            output[i] = operator()(input[i]);
+        }
+    }
+
+    template<typename T>
+    __device__
     T 
     Sigmoid<T>::operator()(const T& input)
     {
@@ -55,6 +77,17 @@ namespace cunet
     {
         forward(input, *this);
         return input;
+    }
+
+    template<typename T>
+    __device__
+    void 
+    Sigmoid<T>::operator()(T* input, T* output, const uint32_t& size)
+    {
+        for(uint32_t i = 0; i < size; ++i)
+        {
+            output[i] = operator()(input[i]);
+        }
     }
 
     template<typename T>
@@ -79,6 +112,17 @@ namespace cunet
     {
         forward(input, *this);
         return input;
+    }
+
+    template<typename T>
+    __device__
+    void 
+    Softplus<T>::operator()(T* input, T* output, const uint32_t& size)
+    {
+        for(uint32_t i = 0; i < size; ++i)
+        {
+            output[i] = operator()(input[i]);
+        }
     }
 
     template<typename T, class Activation>
